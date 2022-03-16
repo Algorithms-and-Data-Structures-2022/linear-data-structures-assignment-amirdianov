@@ -27,7 +27,14 @@ namespace assignment {
   }
 
   void LinkedList::Clear() {
-    // Write your code here ...
+    for (Node* curr = front_; curr != nullptr; /**/) {
+      Node* node_to_remove = curr;
+      curr = curr->next;
+      delete node_to_remove;
+    }
+    size_ = 0;
+    front_ = nullptr;
+    back_ = nullptr;
   }
 
   std::optional<int> LinkedList::Get(int index) const {
@@ -45,20 +52,24 @@ namespace assignment {
   }
 
   bool LinkedList::IsEmpty() const {
-    return false;
+    return front_ == nullptr;
   }
 
   int LinkedList::size() const {
-    return 0;
+    return size_;
   }
 
   std::optional<int> LinkedList::front() const {
-    // Write your code here ...
+    if (front_ != nullptr){
+      return front_->value;
+    }
     return std::nullopt;
   }
 
   std::optional<int> LinkedList::back() const {
-    // Write your code here ...
+    if (back_ != nullptr){
+      return back_->value;
+    }
     return std::nullopt;
   }
 
