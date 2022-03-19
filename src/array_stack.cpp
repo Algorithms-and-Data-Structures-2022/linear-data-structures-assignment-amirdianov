@@ -10,50 +10,75 @@ namespace assignment {
     // выбрасываем ошибку, если указана неположительная емкость стека
     if (capacity <= 0) {
       throw std::invalid_argument("capacity is not positive");
+    } else {
+      capacity_ = capacity;
+      data_ = new int[capacity_];
+      std::fill(data_, data_ + capacity_, 0);
     }
-
-    // Write your code here ...
   }
 
   ArrayStack::~ArrayStack() {
-    // Write your code here ...
+    size_ = 0;
+    capacity_ = 0;
+
+    delete[] data_;
+    data_ = nullptr;
   }
 
   void ArrayStack::Push(int value) {
-    // Write your code here ...
+    if (size_ + 1 > capacity_) {
+      Resize(capacity_ + kCapacityGrowthCoefficient);
+    }
+    data_[size_] = value;
+    size_ += 1;
   }
 
   bool ArrayStack::Pop() {
-    // Write your code here ...
+    if (size_ != 0) {
+      data_[size_-1] = 0;
+      size_ -= 1;
+      return true;
+    }
     return false;
   }
 
   void ArrayStack::Clear() {
-    // Write your code here ...
+    size_ = 0;
   }
 
   std::optional<int> ArrayStack::Peek() const {
-    // Write your code here ...
+    if (size_ != 0) {
+      return data_[size_ - 1];
+    }
     return std::nullopt;
   }
 
   bool ArrayStack::IsEmpty() const {
-    // Write your code here ...
-    return false;
+    return size_ == 0;
   }
 
   int ArrayStack::size() const {
-    // Write your code here ...
-    return 0;
+    return size_;
   }
 
   int ArrayStack::capacity() const {
-    // Write your code here ...
-    return 0;
+    return capacity_;
   }
 
   bool ArrayStack::Resize(int new_capacity) {
-    // Write your code here ...
+    if (new_capacity > 0 and new_capacity > capacity_) {
+      int* mas = new int[new_capacity];
+      std::copy(data_, data_ + size_, mas);
+      std::fill(mas + size_, mas + new_capacity, 0);
+      data_ = new int[new_capacity];
+      for (int i = 0; i < new_capacity; i++) {
+        data_[i] = mas[i];
+      }
+      delete[] mas;
+      capacity_ = new_capacity;
+      mas = nullptr;
+      return true;
+    }
     return false;
   }
 
