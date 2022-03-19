@@ -56,7 +56,7 @@ namespace assignment {
   bool LinkedList::Set(int index, int new_value) {
     if (index < size_ and index >= 0) {
       Node* change_perem = front_;
-      int i = 1;
+      int i = 0;
       while (change_perem != nullptr) {
         if (i == index) {
           change_perem->value = new_value;
